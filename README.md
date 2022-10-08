@@ -1,2 +1,1 @@
-# flasksite
 # schoolsite
