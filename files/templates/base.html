@@ -24,6 +24,7 @@
               {% if user.is_authenticated %}
               <li><a class="dropdown-item text-white"x href="{{ url_for('views.home') }}">Home</a></li>
               <li><a class="dropdown-item text-white"x href="{{ url_for('views.notes') }}">Notes</a></li>
+              <li><a class="dropdown-item text-white"x href="{{ url_for('views.ressources') }}">Ressources</a></li>
               <li><a class="dropdown-item text-white"x href="{{ url_for('auth.logout') }}">Logout</a></li>
               {% else %}
               <li><a class="dropdown-item text-white"x href="{{ url_for('auth.login') }}">Login</a></li>
@@ -31,8 +32,10 @@
               {% endif %}
             </ul>
           </div> 
+          {% block header %}
           <h1>The Noter</h1>
           <h3>Taking your notes in the simplest way</h3>
+          {% endblock %}
         </div>
       </header>
       
@@ -55,7 +58,7 @@
       {% endif %}
       {% endwith %}
 
-      <section class=" m-1 p-2 border border-primary rounded">
+      <section class=" m-1 p-2 border border-primary rounded text-dark text-start">
         {% block content %}
         
         {% endblock %}
