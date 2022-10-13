@@ -5,7 +5,7 @@
 <h1>Notes</h1>
 <ul class="list-group list-group-flush">
     {% for note in user.notes %}
-    <li class="list-group-item rounded">
+    <li class="list-group-item rounded my-1">
         {{ note.data }}
         <button type="button" class="btn-close" aria-label="Close" onclick="deleteNote({{note.id}})"></button>
     </li>

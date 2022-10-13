@@ -16,28 +16,28 @@ class Note(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+# Add many to many between grade/major and module
 class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    majors = db.relationship("Major")
-    modules = db.relationship("Module")
+    majors = db.relationship("Major", backref='grade')
+    modules = db.relationship("Module", backref='grade')
 
 class Major(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     grade_id = db.Column(db.Integer, db.ForeignKey('grade.id'))
-    modules = db.relationship("Module")
+    modules = db.relationship("Module", backref='major')
 
-# I could have one module for many majors and many modules for one majors. Many-to-many relationship to make
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     grade_id = db.Column(db.Integer, db.ForeignKey('grade.id'), nullable=True)
-    major_id = db.Column(db.Integer, db.Foreignkey('major.id'), nullable=True)
-    documents = db.relationship("Document")
+    major_id = db.Column(db.Integer, db.ForeignKey('major.id'), nullable=True)
+    documents = db.relationship("Document", backref='module')
 
 class Document(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     document = db.Column(db.String(50), unique=True)
-    module_id = db.Column(db.Integer, db.Foreignkey('module.id'))
+    module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
