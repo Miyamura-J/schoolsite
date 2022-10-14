@@ -17,23 +17,21 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # Add many to many between grade/major and module
-class Grade(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-    majors = db.relationship("Major", backref='grade')
-    modules = db.relationship("Module", backref='grade')
-
 class Major(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    year = db.relationship("Year", backref='year')
+
+class Year(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    grade_id = db.Column(db.Integer, db.ForeignKey('grade.id'))
+    fillier_id = db.Column(db.Integer, db.ForeignKey('major.id'))
     modules = db.relationship("Module", backref='major')
 
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    grade_id = db.Column(db.Integer, db.ForeignKey('grade.id'), nullable=True)
-    major_id = db.Column(db.Integer, db.ForeignKey('major.id'), nullable=True)
+    year_id = db.Column(db.Integer, db.ForeignKey('year.id'), nullable=True)
     documents = db.relationship("Document", backref='module')
 
 class Document(db.Model):
