@@ -7,28 +7,42 @@
 
 {% block content %}
 <div>
-    {% for major in majors %}
-    <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{major.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
-        {{ major.name }}
-    </button>
-    {% endfor %}
-
+    <div>
+        {% for major in majors %}
+        <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{major.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
+            {{ major.name }}
+        </button>
+        {% endfor %}
+    </div>
     {% for major in majors %}
     <div class="collapse my-1" id="{{major.name.replace(' ','').lower()}}">
-        <div class="card card-body bg-secondary">
-            <div class="m-1">
-            {% for year in major.years %}
+        <div class="card card-body bg-secondary p-1">
+            <div>
+                {% for year in major.years %}
                 <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{year.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
                     {{year.name}}
                 </button>
                 {% endfor %}
             </div>
             {% for year in major.years %}
-            <div>
-                <div class="collapse" id="{{year.name.replace(' ','').lower()}}">
-                    <div class="card card-body bg-dark text-white">
-                        Documents de {{year.name}}
+            <div class="collapse" id="{{year.name.replace(' ','').lower()}}">
+                <div class="card card-body bg-dark text-white p-1">
+                    <div>
+                        {% for module in year.modules %}
+                        <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{module.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
+                            {{module.name}}
+                        </button>
+                        {% endfor %}
                     </div>
+                    {% for module in year.modules %}
+                    <div class="collapse" id="{{module.name.replace(' ','').lower()}}">
+                        <div class="card card-body bg-dark text-white p-1">
+                            {% for  document in module.documents %}
+                                {{document.name}}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
             {% endfor %}
