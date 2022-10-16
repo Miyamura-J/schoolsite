@@ -20,7 +20,7 @@ class Note(db.Model):
 class Major(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    year = db.relationship("Year", backref='year')
+    years = db.relationship("Year", backref='year')
 
 class Year(db.Model):
     id = db.Column(db.Integer, primary_key=True)

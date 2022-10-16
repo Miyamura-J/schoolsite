@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, Major
 from . import db
 import json
 
@@ -14,7 +14,8 @@ def home():
 @views.route("/ressources")
 @login_required
 def ressources():
-    return render_template("ressources.html", user=current_user)
+    majors = Major.query.filter_by()
+    return render_template("ressources.html", user=current_user, majors=majors)
 
 @views.route("/notes", methods=["GET","POST"])
 @login_required
