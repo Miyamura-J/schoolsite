@@ -20,18 +20,22 @@ class Note(db.Model):
 class Major(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    years = db.relationship("Year", backref='year')
+    years = db.relationship("Year", backref='major')
+
+year_module = db.Table('year_module',
+    db.Column('year_id', db.Integer, db.ForeignKey('year.id')),
+    db.Column('module', db.Integer, db.ForeignKey('module.id'))
+)
 
 class Year(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    fillier_id = db.Column(db.Integer, db.ForeignKey('major.id'))
-    modules = db.relationship("Module", backref='major')
+    major_id = db.Column(db.Integer, db.ForeignKey('major.id'))
+    modules = db.relationship("Module", secondary=year_module, backref='years')
 
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    year_id = db.Column(db.Integer, db.ForeignKey('year.id'), nullable=True)
     documents = db.relationship("Document", backref='module')
 
 class Document(db.Model):

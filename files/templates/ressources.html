@@ -25,7 +25,7 @@
                 {% endfor %}
             </div>
             {% for year in major.years %}
-            <div class="collapse" id="{{year.name.replace(' ','').lower()}}">
+            <div class="collapse my-1" id="{{year.name.replace(' ','').lower()}}">
                 <div class="card card-body bg-dark text-white p-1">
                     <div>
                         {% for module in year.modules %}
