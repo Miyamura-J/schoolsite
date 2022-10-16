@@ -17,15 +17,21 @@
     <div class="collapse my-1" id="{{major.name.replace(' ','').lower()}}">
         <div class="card card-body bg-secondary">
             <div class="m-1">
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#topology" aria-expanded="true" aria-controls="collapseExample">
-                    Topology
+            {% for year in major.years %}
+                <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{year.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
+                    {{year.name}}
                 </button>
-                <div class="collapse" id="topology">
+                {% endfor %}
+            </div>
+            {% for year in major.years %}
+            <div>
+                <div class="collapse" id="{{year.name.replace(' ','').lower()}}">
                     <div class="card card-body bg-dark text-white">
-                        Documents de topologie
+                        Documents de {{year.name}}
                     </div>
                 </div>
-            </div><br>
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% endfor %}
