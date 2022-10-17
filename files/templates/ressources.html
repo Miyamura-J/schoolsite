@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="accordion" id="accordion-majors">
     <div>
         {% for major in majors %}
         <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{major.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
@@ -15,8 +15,8 @@
         {% endfor %}
     </div>
     {% for major in majors %}
-    <div class="collapse my-1" id="{{major.name.replace(' ','').lower()}}">
-        <div class="card card-body bg-secondary p-1">
+    <div class="collapse my-1" data-bs-parent="#accordion-majors" id="{{major.name.replace(' ','').lower()}}">
+        <div class="card card-body bg-secondary p-1" id="accordion-years">
             <div>
                 {% for year in major.years %}
                 <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{year.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
@@ -25,21 +25,19 @@
                 {% endfor %}
             </div>
             {% for year in major.years %}
-            <div class="collapse my-1" id="{{year.name.replace(' ','').lower()}}">
-                <div class="card card-body bg-dark text-white p-1">
+            <div class="collapse my-1" data-bs-parent="#accordion-years" id="{{year.name.replace(' ','').lower()}}">
+                <div class="card card-body bg-dark text-white p-1" id="accordion-modules">
                     <div>
                         {% for module in year.modules %}
-                        <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{module.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
+                        <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{module.name.replace(' ','').replace('\'','').replace('\,','')}}" aria-expanded="true" aria-controls="collapseExample">
                             {{module.name}}
                         </button>
                         {% endfor %}
                     </div>
                     {% for module in year.modules %}
-                    <div class="collapse" id="{{module.name.replace(' ','').lower()}}">
+                    <div class="collapse" data-bs-parent="#accordion-modules" id="{{module.name.replace(' ','').replace('\'','').replace('\,','')}}">
                         <div class="card card-body bg-dark text-white p-1">
-                            {% for  document in module.documents %}
-                                {{document.name}}
-                            {% endfor %}
+                            {{module.name}}
                         </div>
                     </div>
                     {% endfor %}
@@ -50,5 +48,4 @@
     </div>
     {% endfor %}
 </div>
-
 {% endblock %}
