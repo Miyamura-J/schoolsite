@@ -1,2 +1,4 @@
 instance/
 files/__pycache__
+files/database.db
+files/database.db-journal
