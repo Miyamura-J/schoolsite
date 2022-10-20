@@ -16,7 +16,7 @@
     </div>
     {% for major in majors %}
     <div class="collapse my-1" data-bs-parent="#accordion-majors" id="{{major.name.replace(' ','').lower()}}">
-        <div class="card card-body bg-secondary p-1" id="accordion-years">
+        <div class="card card-body bg-secondary p-1" id="accordion-years-{{major.name.replace(' ','').lower()}}">
             <div>
                 {% for year in major.years %}
                 <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{year.name.replace(' ','').lower()}}" aria-expanded="true" aria-controls="collapseExample">
@@ -25,8 +25,8 @@
                 {% endfor %}
             </div>
             {% for year in major.years %}
-            <div class="collapse my-1" data-bs-parent="#accordion-years" id="{{year.name.replace(' ','').lower()}}">
-                <div class="card card-body bg-dark text-white p-1" id="accordion-modules">
+            <div class="collapse my-1" data-bs-parent="#accordion-years-{{major.name.replace(' ','').lower()}}" id="{{year.name.replace(' ','').lower()}}">
+                <div class="card card-body bg-dark text-white p-1" id="accordion-modules-{{year.name.replace(' ','').lower()}}">
                     <div>
                         {% for module in year.modules %}
                         <button class="btn btn-primary m-1" type="button" data-bs-toggle="collapse" data-bs-target="#{{module.name.replace(' ','').replace('\'','').replace('\,','')}}" aria-expanded="true" aria-controls="collapseExample">
@@ -35,7 +35,7 @@
                         {% endfor %}
                     </div>
                     {% for module in year.modules %}
-                    <div class="collapse" data-bs-parent="#accordion-modules" id="{{module.name.replace(' ','').replace('\'','').replace('\,','')}}">
+                    <div class="collapse" data-bs-parent="#accordion-modules-{{year.name.replace(' ','').lower()}}" id="{{module.name.replace(' ','').replace('\'','').replace('\,','')}}">
                         <div class="card card-body bg-dark text-white p-1">
                             {{module.name}}
                         </div>
