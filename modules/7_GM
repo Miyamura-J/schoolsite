@@ -1,4 +1,3 @@
-## Modules de Formation
 Mathématiques pour ingénieur
 Mécanique de Base
 Conception de produit 1
@@ -11,6 +10,7 @@ Conception de produit 2
 Electronique et Electrotechnique
 Transferts thermiques et Turbomachines
 Organisation et Comptabilité d’entreprise
+#
 Maintenance, fiabilité et sûreté de fonctionnement
 Usinage, Mesure et contrôle
 Matériaux
@@ -23,6 +23,7 @@ Automatisation
 Gestion de projet et Gestion de produit
 Productique et Choix des Matériaux
 Projet de fin d'année
+#
 Machine à commande numérique et CFAO
 Robotique et Ateliers flexibles
 Management Qualité et sécurité industrielle

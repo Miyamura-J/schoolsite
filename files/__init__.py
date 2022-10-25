@@ -38,7 +38,7 @@ def create_db(app):
         print("Database Created!")
 
         from .models import Major, Year, Module, Document
-        major_names = ["CYCLE PRÉPARATOIRE","G INFORMATIQUE","G INDUSTRIEL","G DES PROCÉDÉS ENERGIE ET ENVIRONNEMENT","G ELECTRIQUE","G CIVIL","G MÉCANIQUE"]
+        major_names = ["CYCLE PRÉPARATOIRE","G INFORMATIQUE","G INDUSTRIEL","G DES PROCÉDÉS ENERGIE ET ENVIRONNEMENT","G ELECTRIQUE","G CIVIL","G MÉCANIQUE","G FINANCE ET INGENIERIE DECISIONNELLE"]
         with app.app_context():
             for major_name in major_names:
                 if not Major.query.filter_by(name=major_name).first():
@@ -54,16 +54,20 @@ def create_db(app):
                         db.session.add(new_year)
                 
             module_files = sorted(listdir("modules/"))
+            year_id = 0
             for file in module_files:
                 file = open("modules/"+file,'r')
+                year_id += 1
                 for line in file.readlines():
                     line = line.replace("\n", "")
-                    if line[0:2] == "##":
-                        pass
-                    elif line[0] == "#":
-                        pass
-                    elif not Module.query.filter_by(name=line).first():
-                        module_name = line
-                        db.session.add(Module(name=module_name))
+                    if line[0] == "#":
+                        year_id += 1
+                    else:
+                        if not Module.query.filter_by(name=line).first():
+                            module_name = line
+                            db.session.add(Module(name=module_name))
+                        module = Module.query.filter_by(name=line).first()
+                        module.years.append(Year.query.get(year_id))
+                        
 
             db.session.commit()
